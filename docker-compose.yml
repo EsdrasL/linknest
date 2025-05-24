@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  firebase:
+    container_name: firebase-emulator
+    build:
+      context: .
+    ports:
+      - 8080:8080 # **FIRESTORE_PORT**
+      - 4000:4000 # **UI_PORT**
