@@ -1,6 +1,6 @@
-import { AuthService } from "@/core/interfaces/AuthService";
-import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { jwtVerify, SignJWT } from "jose";
+import { AuthService } from "@/core/interfaces/AuthService";
 
 type Session = {
   userId: string;
@@ -11,8 +11,7 @@ export class JwtCookieAuthService implements AuthService {
   private sessionSecret = process.env.SESSION_SECRET;
 
   async createSession(userId: string): Promise<void> {
-    // const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    const expiresAt = new Date(Date.now() + 30 * 1000);
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
     const session = await this.encrypt({ userId, expiresAt });
     const cookieStore = await cookies();
 

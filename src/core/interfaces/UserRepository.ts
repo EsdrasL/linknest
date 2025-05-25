@@ -8,4 +8,5 @@ export interface UserRepository {
     email: string;
     password: string;
   }): Promise<User>;
+  findByEmailWithPassword(email: string): Promise<(User & { passwordHash: string }) | null>;
 }

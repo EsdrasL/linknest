@@ -2,10 +2,10 @@
 
 import { signUpUser } from "@/core/usecases/signupUser";
 import { dependencyContainer } from "@/lib/dependencyContainer";
-import { FormState, SignupFormSchema } from "@/core/validation/signupForm";
+import { SignupFormState, SignupFormSchema } from "@/core/validation/signupForm";
 import { redirect } from "next/navigation";
 
-export async function onSignUpSubmit(state: FormState, formData: FormData) {
+export async function onSignUpSubmit(state: SignupFormState, formData: FormData) {
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),

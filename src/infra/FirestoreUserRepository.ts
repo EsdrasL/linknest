@@ -6,15 +6,18 @@ import bcrypt from "bcrypt";
 import { User } from "@/core/models/User";
 import { firestore } from "@/lib/firebase";
 import { UserRepository } from "@/core/interfaces/UserRepository";
+import { PasswordHasher } from "@/core/interfaces/PasswordHasher";
 
 interface FirestoreUser extends User {
   password: string;
 }
 
 export class FirestoreUserRepository implements UserRepository {
+  private passwordHasher: PasswordHasher;
   private users: CollectionReference<FirestoreUser>;
 
-  constructor() {
+  constructor(passwordHasher: PasswordHasher) {
+    this.passwordHasher = passwordHasher;
     this.users = firestore.collection("users").withConverter({
       toFirestore: (data: FirestoreUser) => data,
       fromFirestore: (snap: QueryDocumentSnapshot) =>
@@ -50,7 +53,7 @@ export class FirestoreUserRepository implements UserRepository {
     email: string;
     password: string;
   }): Promise<User> {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await this.passwordHasher.hash(password);
 
     const documentReference = this.users.doc();
     await documentReference.set({
@@ -61,5 +64,19 @@ export class FirestoreUserRepository implements UserRepository {
     });
 
     return { id: documentReference.id, name, email };
+  }
+
+  async findByEmailWithPassword(email: string) {
+    const query = await this.users.where("email", "==", email).get();
+
+    if (!query.size) return null;
+
+    const userData = query.docs[0].data();
+    return {
+      id: userData.id,
+      name: userData.name,
+      email: userData.email,
+      passwordHash: userData.password,
+    };
   }
 }
