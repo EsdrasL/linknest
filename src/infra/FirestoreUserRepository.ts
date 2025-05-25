@@ -24,14 +24,17 @@ export class FirestoreUserRepository implements UserRepository {
     });
   }
 
-  async findById(id: string): Promise<User | null> {
-    const userDocument = await this.users.doc(id).get();
-    if (!userDocument.exists) return null;
+  async findByUsername(username: string): Promise<User | null> {
+    const query = await this.users.where("username", "==", username).get();
 
-    const userData = userDocument.data();
-    if (!userData) return null;
+    if (!query.size) return null;
 
-    return { id: userData.id, username: userData.username, email: userData.email };
+    const userData = query.docs[0].data();
+    return {
+      id: userData.id,
+      username: userData.username,
+      email: userData.email,
+    };
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -40,7 +43,11 @@ export class FirestoreUserRepository implements UserRepository {
     if (!query.size) return null;
 
     const userData = query.docs[0].data();
-    return { id: userData.id, username: userData.username, email: userData.email };
+    return {
+      id: userData.id,
+      username: userData.username,
+      email: userData.email,
+    };
   }
 
   async create({

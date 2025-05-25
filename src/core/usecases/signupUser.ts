@@ -11,9 +11,16 @@ export async function signUpUser(
     authService: AuthService;
   }
 ): Promise<User> {
-  const existing = await dependencies.userRepository.findByEmail(email);
-  if (existing) {
-    throw new Error("User already exists");
+  const existingEmail = await dependencies.userRepository.findByEmail(email);
+  if (existingEmail) {
+    throw new Error("Email already exists");
+  }
+
+  const existingUsername = await dependencies.userRepository.findByUsername(
+    username
+  );
+  if (existingUsername) {
+    throw new Error("Username already exists");
   }
 
   const user = await dependencies.userRepository.create({
