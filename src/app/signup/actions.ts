@@ -5,7 +5,7 @@ import { dependencyContainer } from "@/lib/dependencyContainer";
 import { SignupFormState, SignupFormSchema } from "@/core/validation/signupForm";
 import { redirect } from "next/navigation";
 
-export async function onSignUpSubmit(state: SignupFormState, formData: FormData) {
+export async function signUpAction(state: SignupFormState, formData: FormData) {
   const validatedFields = SignupFormSchema.safeParse({
     username: formData.get("username"),
     email: formData.get("email"),

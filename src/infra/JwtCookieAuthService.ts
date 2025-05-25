@@ -24,19 +24,19 @@ export class JwtCookieAuthService implements AuthService {
     });
   }
 
-  async verifySession(): Promise<{ isAuth: boolean; userId: string | null }> {
+  async verifySession(): Promise<string | null> {
     const cookieStore = await cookies();
     const cookie = cookieStore.get("session");
     if (!cookie) {
-      return { isAuth: false, userId: null };
+      return null;
     }
 
     const session = await this.decrypt(cookie.value);
     if (!session?.userId) {
-      return { isAuth: false, userId: null };
+      return null;
     }
 
-    return { isAuth: true, userId: session.userId };
+    return session.userId;
   }
 
   async deleteSession(): Promise<void> {

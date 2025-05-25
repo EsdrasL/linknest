@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
-import { onSignUpSubmit } from "./actions";
+import { signUpAction } from "./actions";
 
 export default function SignupPage() {
-  const [state, action, pending] = useActionState(onSignUpSubmit, undefined);
+  const [state, action, pending] = useActionState(signUpAction, undefined);
 
   return (
     <>

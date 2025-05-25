@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
-import { onLoginSubmit } from "./actions";
+import { loginAction } from "./actions";
 
 export default function LoginPage() {
-  const [state, action, pending] = useActionState(onLoginSubmit, undefined);
+  const [state, action, pending] = useActionState(loginAction, undefined);
 
   return (
     <>

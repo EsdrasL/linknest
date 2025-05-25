@@ -5,7 +5,7 @@ import { LoginFormSchema, LoginFormState } from "@/core/validation/loginForm";
 import { dependencyContainer } from "@/lib/dependencyContainer";
 import { redirect } from "next/navigation";
 
-export async function onLoginSubmit(state: LoginFormState, formData: FormData) {
+export async function loginAction(state: LoginFormState, formData: FormData) {
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
