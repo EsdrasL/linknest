@@ -8,6 +8,8 @@ import { dependencyContainer } from "@/lib/dependencyContainer";
 import { AddLinkFormSchema } from "@/core/validation/addLinkForm";
 import { addLink } from "@/core/usecases/addLink";
 import { removeLink } from "@/core/usecases/removeLink";
+import { UpdateLinkFormSchema } from "@/core/validation/updateLinkForm";
+import { updateLink } from "@/core/usecases/updateLink";
 
 export async function addLinkAction(formData: FormData) {
   const userId = await dependencyContainer.authService.verifySession();
@@ -40,6 +42,33 @@ export async function removeLinkAction(link: Link) {
   }
 
   await removeLink(userId, link, dependencyContainer);
+
+  revalidatePath("/admin");
+}
+
+export async function updateLinkAction(formData: FormData, linkId: string) {
+  const userId = await dependencyContainer.authService.verifySession();
+
+  if (!userId) {
+    redirect("/login");
+  }
+
+  const validatedFields = UpdateLinkFormSchema.safeParse({
+    title: formData.get("title"),
+    url: formData.get("url"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  await updateLink(
+    userId,
+    { ...validatedFields.data, id: linkId },
+    dependencyContainer
+  );
 
   revalidatePath("/admin");
 }

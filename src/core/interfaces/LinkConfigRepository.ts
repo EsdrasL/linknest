@@ -5,4 +5,5 @@ export interface LinkConfigRepository {
   create(userId: string): Promise<void>;
   addLink(userId: string, link: Link): Promise<void>;
   removeLink(userId: string, link: Link): Promise<void>;
+  updateLinks(userId: string, updatedLinks: Link[]): Promise<void>
 }

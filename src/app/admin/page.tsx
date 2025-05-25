@@ -1,5 +1,5 @@
 import LinkList from "@/components/LinkList";
-import { addLinkAction, removeLinkAction } from "./actions";
+import { addLinkAction, removeLinkAction, updateLinkAction } from "./actions";
 import AddLink from "@/components/AddLink";
 import { redirect } from "next/navigation";
 import { dependencyContainer } from "@/lib/dependencyContainer";
@@ -20,7 +20,15 @@ export default async function AdminPage() {
 
       <AddLink onAddLink={addLinkAction} />
 
-      {linkConfig ? <LinkList links={linkConfig.links} onRemoveLink={removeLinkAction} /> : <p>No links yet</p>}
+      {linkConfig ? (
+        <LinkList
+          links={linkConfig.links}
+          onUpdateLink={updateLinkAction}
+          onRemoveLink={removeLinkAction}
+        />
+      ) : (
+        <p>No links yet</p>
+      )}
     </div>
   );
 }

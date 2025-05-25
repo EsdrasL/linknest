@@ -22,11 +22,11 @@ export class FirestoreLinkConfigRepository implements LinkConfigRepository {
 
     if (!document.exists) return null;
 
-    const linkData = document.data() as LinkConfig;
+    const linkConfig = document.data() as LinkConfig;
 
     return {
-      userId: linkData.userId,
-      links: linkData.links,
+      userId: linkConfig.userId,
+      links: linkConfig.links,
     };
   }
 
@@ -42,5 +42,9 @@ export class FirestoreLinkConfigRepository implements LinkConfigRepository {
     await this.links
       .doc(userId)
       .update({ links: FieldValue.arrayRemove(link) });
+  }
+
+  async updateLinks(userId: string, updatedLinks: Link[]): Promise<void> {
+    await this.links.doc(userId).update({ links: updatedLinks });
   }
 }
