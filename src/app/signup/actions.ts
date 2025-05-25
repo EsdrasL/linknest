@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 export async function onSignUpSubmit(state: SignupFormState, formData: FormData) {
   const validatedFields = SignupFormSchema.safeParse({
-    name: formData.get("name"),
+    username: formData.get("username"),
     email: formData.get("email"),
     password: formData.get("password"),
   });
@@ -18,10 +18,10 @@ export async function onSignUpSubmit(state: SignupFormState, formData: FormData)
     };
   }
 
-  const { name, email, password } = validatedFields.data;
+  const { username, email, password } = validatedFields.data;
 
   try {
-    await signUpUser(name, email, password, dependencyContainer);
+    await signUpUser(username, email, password, dependencyContainer);
   } catch (error) {
     return { message: "An error occurred while creating your account." };
   }

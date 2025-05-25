@@ -11,10 +11,10 @@ export default function SignupPage() {
       <h1>Sign Up</h1>
       <form action={action}>
         <div>
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" placeholder="Name" />
+          <label htmlFor="username">Username</label>
+          <input id="username" name="username" placeholder="Username" />
         </div>
-        {state?.errors?.name && <p>{state.errors.name}</p>}
+        {state?.errors?.username && <p>{state.errors.username}</p>}
 
         <div>
           <label htmlFor="email">Email</label>

@@ -3,7 +3,7 @@ import { AuthService } from "@/core/interfaces/AuthService";
 import { UserRepository } from "@/core/interfaces/UserRepository";
 
 export async function signUpUser(
-  name: string,
+  username: string,
   email: string,
   password: string,
   dependencies: {
@@ -17,7 +17,7 @@ export async function signUpUser(
   }
 
   const user = await dependencies.userRepository.create({
-    name,
+    username,
     email,
     password,
   });

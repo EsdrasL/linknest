@@ -2,7 +2,6 @@ import {
   CollectionReference,
   QueryDocumentSnapshot,
 } from "firebase-admin/firestore";
-import bcrypt from "bcrypt";
 import { User } from "@/core/models/User";
 import { firestore } from "@/lib/firebase";
 import { UserRepository } from "@/core/interfaces/UserRepository";
@@ -32,7 +31,7 @@ export class FirestoreUserRepository implements UserRepository {
     const userData = userDocument.data();
     if (!userData) return null;
 
-    return { id: userData.id, name: userData.name, email: userData.email };
+    return { id: userData.id, username: userData.username, email: userData.email };
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -41,15 +40,15 @@ export class FirestoreUserRepository implements UserRepository {
     if (!query.size) return null;
 
     const userData = query.docs[0].data();
-    return { id: userData.id, name: userData.name, email: userData.email };
+    return { id: userData.id, username: userData.username, email: userData.email };
   }
 
   async create({
-    name,
+    username,
     email,
     password,
   }: {
-    name: string;
+    username: string;
     email: string;
     password: string;
   }): Promise<User> {
@@ -58,12 +57,12 @@ export class FirestoreUserRepository implements UserRepository {
     const documentReference = this.users.doc();
     await documentReference.set({
       id: documentReference.id,
-      name,
+      username,
       email,
       password: hashedPassword,
     });
 
-    return { id: documentReference.id, name, email };
+    return { id: documentReference.id, username, email };
   }
 
   async findByEmailWithPassword(email: string) {
@@ -74,7 +73,7 @@ export class FirestoreUserRepository implements UserRepository {
     const userData = query.docs[0].data();
     return {
       id: userData.id,
-      name: userData.name,
+      username: userData.username,
       email: userData.email,
       passwordHash: userData.password,
     };

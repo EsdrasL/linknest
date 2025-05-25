@@ -27,7 +27,7 @@ export async function loginUser(
   const user = {
     id: userRecord.id,
     email: userRecord.email,
-    name: userRecord.name,
+    username: userRecord.username,
   };
 
   await dependencies.authService.createSession(user.id);

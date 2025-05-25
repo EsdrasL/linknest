@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const SignupFormSchema = z.object({
-  name: z
+  username: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters long." })
+    .min(3, { message: "Username must be at least 3 characters long." })
     .trim(),
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
@@ -20,7 +20,7 @@ export const SignupFormSchema = z.object({
 export type SignupFormState =
   | {
       errors?: {
-        name?: string[];
+        username?: string[];
         email?: string[];
         password?: string[];
       };
