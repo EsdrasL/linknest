@@ -1,7 +1,7 @@
 import { User } from "@/core/models/User";
 import { AuthService } from "@/core/interfaces/AuthService";
 import { UserRepository } from "@/core/interfaces/UserRepository";
-import { PasswordHasher } from "../interfaces/PasswordHasher";
+import { PasswordHasher } from "@/core/interfaces/PasswordHasher";
 
 export async function loginUser(
   email: string,

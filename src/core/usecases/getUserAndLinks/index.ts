@@ -1,7 +1,7 @@
 import { User } from "@/core/models/User";
 import { UserRepository } from "@/core/interfaces/UserRepository";
-import { LinkConfigRepository } from "../interfaces/LinkConfigRepository";
-import { Link } from "../models/LinkConfig";
+import { LinkConfigRepository } from "../../interfaces/LinkConfigRepository";
+import { Link } from "../../models/LinkConfig";
 
 export async function getUserAndLinks(
   username: string,

@@ -1,5 +1,5 @@
 import { LinkConfigRepository } from "@/core/interfaces/LinkConfigRepository";
-import { Link } from "../models/LinkConfig";
+import { Link } from "../../models/LinkConfig";
 
 export async function updateLink(
   userId: string,

@@ -1,7 +1,7 @@
 import { User } from "@/core/models/User";
 import { AuthService } from "@/core/interfaces/AuthService";
 import { UserRepository } from "@/core/interfaces/UserRepository";
-import { LinkConfigRepository } from "../interfaces/LinkConfigRepository";
+import { LinkConfigRepository } from "../../interfaces/LinkConfigRepository";
 
 export async function signUpUser(
   username: string,
