@@ -7,6 +7,7 @@ import LinkCard from "@/components/LinkCard";
 import { Link as LinkIcon, ExternalLink } from "lucide-react";
 import { getUser } from "@/core/usecases/getUser";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function AdminPage() {
   const userId = await dependencyContainer.authService.verifySession();
@@ -27,8 +28,10 @@ export default async function AdminPage() {
     <div className="max-w-3xl mx-auto mt-8 p-8 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-bold">Hello {user?.username}</h1>
-        <Button variant="outline">
-          <ExternalLink className="w-4 h-4" /> Check my page
+        <Button variant="outline" asChild>
+          <Link href={`/${user?.username}`} target="_blank">
+            <ExternalLink className="w-4 h-4" /> Check my page
+          </Link>
         </Button>
       </div>
 
