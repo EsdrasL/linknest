@@ -1,10 +1,16 @@
 import { z } from "zod";
 
+const usernameValidation = z
+  .string()
+  .min(3, { message: "Username must be at least 3 characters long." })
+  .max(20, { message: "Username must be at most 20 characters long." })
+  .regex(/^[a-zA-Z0-9_]+$/, {
+    message: "Username can only contain letters, numbers, and underscores.",
+  })
+  .trim();
+
 export const SignupFormSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters long." })
-    .trim(),
+  username: usernameValidation,
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
     .string()
@@ -18,10 +24,7 @@ export const SignupFormSchema = z.object({
 });
 
 export const UsernameSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters long." })
-    .trim(),
+  username: usernameValidation,
 });
 
 export type SignupFormState = {
