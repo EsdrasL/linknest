@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -53,14 +54,20 @@ export default async function RootLayout({
                   </Button>
                 </>
               ) : (
-                <>
+                <form
+                  action={async () => {
+                    "use server";
+                    await dependencyContainer.authService.deleteSession();
+                    redirect("/");
+                  }}
+                >
                   <Button
-                    asChild
-                    className="bg-white text-primary hover:bg-muted"
+                    className="bg-white text-primary hover:bg-muted cursor-pointer"
+                    type="submit"
                   >
-                    <Link href="/signup">Logout</Link>
+                    Logout
                   </Button>
-                </>
+                </form>
               )}
             </nav>
           </header>
