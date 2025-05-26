@@ -39,7 +39,7 @@ export default function SignupPage() {
               id="username"
               name="username"
               type="text"
-              placeholder="yourname"
+              placeholder="username without spaces"
               required
               defaultValue={state?.username}
               onChange={(e) => handleUsernameChange(e.target.value)}
