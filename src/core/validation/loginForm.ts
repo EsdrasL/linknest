@@ -5,8 +5,7 @@ export const LoginFormSchema = z.object({
   password: z.string().trim(),
 });
 
-export type LoginFormState =
-  | {
-      message?: string;
-    }
-  | undefined;
+export type LoginFormState = {
+  email: string;
+  message?: string;
+} | null;

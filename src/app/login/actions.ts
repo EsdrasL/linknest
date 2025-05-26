@@ -5,7 +5,10 @@ import { LoginFormSchema, LoginFormState } from "@/core/validation/loginForm";
 import { dependencyContainer } from "@/lib/dependencyContainer";
 import { redirect } from "next/navigation";
 
-export async function loginAction(state: LoginFormState, formData: FormData) {
+export async function loginAction(
+  _state: LoginFormState,
+  formData: FormData
+): Promise<LoginFormState> {
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -13,6 +16,7 @@ export async function loginAction(state: LoginFormState, formData: FormData) {
 
   if (!validatedFields.success) {
     return {
+      email: formData.get("email")?.toString() || "",
       message: "Invalid email or password",
     };
   }
@@ -30,7 +34,7 @@ export async function loginAction(state: LoginFormState, formData: FormData) {
   }
 
   if (message) {
-    return { message };
+    return { email, message };
   }
 
   // Next redirect can't be used within try/catch blocks
