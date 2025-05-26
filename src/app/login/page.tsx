@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [state, action, pending] = useActionState(loginAction, null);
 
   return (
-    <div className="w-full h-full max-w-lg mx-auto mt-8 p-8">
+    <div className="w-full max-w-lg mx-auto mt-8 p-8">
       <h1 className="text-2xl font-bold text-center mb-2">Welcome back</h1>
       <form className="space-y-4" action={action}>
         <div className="space-y-1">

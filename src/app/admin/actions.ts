@@ -5,13 +5,22 @@ import { revalidatePath } from "next/cache";
 
 import { Link } from "@/core/models/LinkConfig";
 import { dependencyContainer } from "@/lib/dependencyContainer";
-import { AddLinkFormSchema } from "@/core/validation/addLinkForm";
+import {
+  AddLinkFormSchema,
+  AddLinkFormState,
+} from "@/core/validation/addLinkForm";
 import { addLink } from "@/core/usecases/addLink";
 import { removeLink } from "@/core/usecases/removeLink";
-import { UpdateLinkFormSchema } from "@/core/validation/updateLinkForm";
+import {
+  UpdateLinkFormSchema,
+  UpdateLinkFormState,
+} from "@/core/validation/updateLinkForm";
 import { updateLink } from "@/core/usecases/updateLink";
 
-export async function addLinkAction(formData: FormData) {
+export async function addLinkAction(
+  _state: AddLinkFormState,
+  formData: FormData
+): Promise<AddLinkFormState> {
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
@@ -25,13 +34,16 @@ export async function addLinkAction(formData: FormData) {
 
   if (!validatedFields.success) {
     return {
+      title: formData.get("title")?.toString() || "",
+      url: formData.get("url")?.toString() || "",
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
   await addLink(userId, validatedFields.data, dependencyContainer);
-
   revalidatePath("/admin");
+
+  return { title: "", url: "" };
 }
 
 export async function removeLinkAction(link: Link) {
@@ -46,7 +58,10 @@ export async function removeLinkAction(link: Link) {
   revalidatePath("/admin");
 }
 
-export async function updateLinkAction(formData: FormData, linkId: string) {
+export async function updateLinkAction(
+  _state: UpdateLinkFormState,
+  formData: FormData
+): Promise<UpdateLinkFormState> {
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
@@ -54,6 +69,7 @@ export async function updateLinkAction(formData: FormData, linkId: string) {
   }
 
   const validatedFields = UpdateLinkFormSchema.safeParse({
+    id: formData.get("id"),
     title: formData.get("title"),
     url: formData.get("url"),
   });
@@ -64,11 +80,8 @@ export async function updateLinkAction(formData: FormData, linkId: string) {
     };
   }
 
-  await updateLink(
-    userId,
-    { ...validatedFields.data, id: linkId },
-    dependencyContainer
-  );
-
+  await updateLink(userId, validatedFields.data, dependencyContainer);
   revalidatePath("/admin");
+
+  return {};
 }

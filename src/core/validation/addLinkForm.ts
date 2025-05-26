@@ -5,12 +5,12 @@ export const AddLinkFormSchema = z.object({
   url: z.string().url({ message: "Must be a valid URL." }).trim(),
 });
 
-export type AddLinkFormState =
-  | {
-      errors?: {
-        title?: string[];
-        url?: string[];
-      };
-      message?: string;
-    }
-  | undefined;
+export type AddLinkFormState = {
+  title: string;
+  url: string;
+  errors?: {
+    title?: string[];
+    url?: string[];
+  };
+  message?: string;
+} | null;

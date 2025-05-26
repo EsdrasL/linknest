@@ -62,7 +62,7 @@ export default async function RootLayout({
                   }}
                 >
                   <Button
-                    className="bg-white text-primary hover:bg-muted cursor-pointer"
+                    className="bg-white text-primary hover:bg-muted"
                     type="submit"
                   >
                     Logout

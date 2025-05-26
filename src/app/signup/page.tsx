@@ -27,7 +27,7 @@ export default function SignupPage() {
   );
 
   return (
-    <div className="w-full h-full max-w-lg mx-auto mt-8 p-8">
+    <div className="w-full max-w-lg mx-auto mt-8 p-8">
       <h1 className="text-2xl font-bold text-center mb-2">
         Create your account
       </h1>
