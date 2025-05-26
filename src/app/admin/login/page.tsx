@@ -44,7 +44,7 @@ export default function LoginPage() {
       </form>
       <p className="text-sm text-muted-foreground text-center mt-2">
         Don't have an account?{" "}
-        <Link href="/signup" className="underline text-primary">
+        <Link href="/admin/signup" className="underline text-primary">
           Sign up
         </Link>
       </p>

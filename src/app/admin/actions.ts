@@ -24,7 +24,7 @@ export async function addLinkAction(
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
-    redirect("/login");
+    redirect("/admin/login");
   }
 
   const validatedFields = AddLinkFormSchema.safeParse({
@@ -50,7 +50,7 @@ export async function removeLinkAction(link: Link) {
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
-    redirect("/login");
+    redirect("/admin/login");
   }
 
   await removeLink(userId, link, dependencyContainer);
@@ -65,7 +65,7 @@ export async function updateLinkAction(
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
-    redirect("/login");
+    redirect("/admin/login");
   }
 
   const validatedFields = UpdateLinkFormSchema.safeParse({

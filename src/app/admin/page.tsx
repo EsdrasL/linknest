@@ -4,19 +4,34 @@ import { redirect } from "next/navigation";
 import { dependencyContainer } from "@/lib/dependencyContainer";
 import { getUserLinkConfig } from "@/core/usecases/getUserLinkConfig";
 import LinkCard from "@/components/LinkCard";
-import { Link as LinkIcon } from "lucide-react";
+import { Link as LinkIcon, ExternalLink } from "lucide-react";
+import { getUser } from "@/core/usecases/getUser";
+import { Button } from "@/components/ui/button";
 
 export default async function AdminPage() {
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
-    redirect("/login");
+    redirect("/admin/login");
   }
 
-  const linkConfig = await getUserLinkConfig(userId, dependencyContainer);
+  const userPromise = getUser(userId, dependencyContainer);
+  const linkConfigPromise = getUserLinkConfig(userId, dependencyContainer);
+
+  const [user, linkConfig] = await Promise.all([
+    userPromise,
+    linkConfigPromise,
+  ]);
 
   return (
     <div className="max-w-3xl mx-auto mt-8 p-8 space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-lg font-bold">Hello {user?.username}</h1>
+        <Button variant="outline">
+          <ExternalLink className="w-4 h-4" /> Check my page
+        </Button>
+      </div>
+
       <AddLink onAddLink={addLinkAction} />
 
       <div className="space-y-4">
