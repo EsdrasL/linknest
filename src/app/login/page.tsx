@@ -12,7 +12,7 @@ export default function LoginPage() {
 
   return (
     <div className="w-full h-full max-w-lg mx-auto mt-8 p-8">
-      <h1 className="text-2xl font-bold text-center">Welcome back</h1>
+      <h1 className="text-2xl font-bold text-center mb-2">Welcome back</h1>
       <form className="space-y-4" action={action}>
         <div className="space-y-1">
           <Label htmlFor="email">Email</Label>

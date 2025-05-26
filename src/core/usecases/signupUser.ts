@@ -15,14 +15,14 @@ export async function signUpUser(
 ): Promise<User> {
   const existingEmail = await dependencies.userRepository.findByEmail(email);
   if (existingEmail) {
-    throw new Error("Email already exists");
+    throw new Error("Email not available", { cause: "email" });
   }
 
   const existingUsername = await dependencies.userRepository.findByUsername(
     username
   );
   if (existingUsername) {
-    throw new Error("Username already exists");
+    throw new Error("Username not available", { cause: "username" });
   }
 
   const user = await dependencies.userRepository.create({

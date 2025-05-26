@@ -17,13 +17,20 @@ export const SignupFormSchema = z.object({
     .trim(),
 });
 
-export type SignupFormState =
-  | {
-      errors?: {
-        username?: string[];
-        email?: string[];
-        password?: string[];
-      };
-      message?: string;
-    }
-  | undefined;
+export const UsernameSchema = z.object({
+  username: z
+    .string()
+    .min(3, { message: "Username must be at least 3 characters long." })
+    .trim(),
+});
+
+export type SignupFormState = {
+  username: string;
+  email: string;
+  errors?: {
+    username?: string[];
+    email?: string[];
+    password?: string[];
+  };
+  message?: string;
+} | null;
