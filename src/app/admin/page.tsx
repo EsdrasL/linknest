@@ -24,24 +24,27 @@ export default async function AdminPage() {
     linkConfigPromise,
   ]);
 
+  const username = user?.username || "";
+
   return (
     <div className="max-w-3xl mx-auto mt-8 p-8 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-bold">Hello {user?.username}</h1>
         <Button variant="outline" asChild>
-          <Link href={`/${user?.username}`} target="_blank">
+          <Link href={`/${username}`} target="_blank">
             <ExternalLink className="w-4 h-4" /> Check my page
           </Link>
         </Button>
       </div>
 
-      <AddLink onAddLink={addLinkAction} />
+      <AddLink username={username} onAddLink={addLinkAction} />
 
       <div className="space-y-4">
         {linkConfig?.links.map((link) => (
           <LinkCard
             key={link.id}
             link={link}
+            username={username}
             onUpdateLink={updateLinkAction}
             onRemoveLink={removeLinkAction}
           />

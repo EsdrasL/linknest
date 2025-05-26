@@ -28,6 +28,7 @@ export async function addLinkAction(
   }
 
   const validatedFields = AddLinkFormSchema.safeParse({
+    username: formData.get("username"),
     title: formData.get("title"),
     url: formData.get("url"),
   });
@@ -42,11 +43,12 @@ export async function addLinkAction(
 
   await addLink(userId, validatedFields.data, dependencyContainer);
   revalidatePath("/admin");
+  revalidatePath(`/${validatedFields.data.username}`);
 
   return { title: "", url: "" };
 }
 
-export async function removeLinkAction(link: Link) {
+export async function removeLinkAction(username: string, link: Link) {
   const userId = await dependencyContainer.authService.verifySession();
 
   if (!userId) {
@@ -56,6 +58,7 @@ export async function removeLinkAction(link: Link) {
   await removeLink(userId, link, dependencyContainer);
 
   revalidatePath("/admin");
+  revalidatePath(`/${username}`);
 }
 
 export async function updateLinkAction(
@@ -69,6 +72,7 @@ export async function updateLinkAction(
   }
 
   const validatedFields = UpdateLinkFormSchema.safeParse({
+    username: formData.get("username"),
     id: formData.get("id"),
     title: formData.get("title"),
     url: formData.get("url"),
@@ -81,7 +85,9 @@ export async function updateLinkAction(
   }
 
   await updateLink(userId, validatedFields.data, dependencyContainer);
+
   revalidatePath("/admin");
+  revalidatePath(`/${validatedFields.data.username}`);
 
   return {};
 }

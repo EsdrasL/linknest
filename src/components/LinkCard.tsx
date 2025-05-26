@@ -9,8 +9,9 @@ import { X as XIcon, Pencil, Save, Trash } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
 
 interface LinkCard {
+  username: string;
   link: Link;
-  onRemoveLink: (link: Link) => Promise<void>;
+  onRemoveLink: (username: string, link: Link) => Promise<void>;
   onUpdateLink: (
     state: UpdateLinkFormState,
     formData: FormData
@@ -18,6 +19,7 @@ interface LinkCard {
 }
 
 export default function LinkCard({
+  username,
   link,
   onUpdateLink,
   onRemoveLink,
@@ -36,6 +38,7 @@ export default function LinkCard({
       <CardContent className="px-4">
         {isEditing ? (
           <form className="flex flex-col space-y-2 h-32" action={action}>
+            <input type="hidden" name="username" defaultValue={username} />
             <input type="hidden" name="id" defaultValue={link.id} />
             <Input
               name="title"
@@ -80,7 +83,7 @@ export default function LinkCard({
                 size="icon"
                 variant="ghost"
                 className="ml-4"
-                onClick={() => onRemoveLink(link)}
+                onClick={() => onRemoveLink(username, link)}
               >
                 <Trash className="w-4 h-4" />
               </Button>

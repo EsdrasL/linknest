@@ -15,13 +15,14 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 interface AddLink {
+  username: string;
   onAddLink: (
     state: AddLinkFormState,
     formData: FormData
   ) => Promise<AddLinkFormState>;
 }
 
-export default function AddLink({ onAddLink }: AddLink) {
+export default function AddLink({ username, onAddLink }: AddLink) {
   const [open, setOpen] = useState(false);
   const [state, action, pending] = useActionState(onAddLink, null);
 
@@ -51,6 +52,7 @@ export default function AddLink({ onAddLink }: AddLink) {
 
           <form action={action} className="px-4 pb-16 space-y-4">
             <div className="space-y-1">
+              <input type="hidden" name="username" defaultValue={username} />
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
