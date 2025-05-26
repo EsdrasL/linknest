@@ -29,7 +29,7 @@ export async function loginAction(
     if (!user) {
       message = "Invalid email or password";
     }
-  } catch (error) {
+  } catch {
     message = "An error occurred while loggin in. Please try again later.";
   }
 

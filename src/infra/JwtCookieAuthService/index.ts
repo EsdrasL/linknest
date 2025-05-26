@@ -62,7 +62,7 @@ export class JwtCookieAuthService implements AuthService {
         algorithms: ["HS256"],
       });
       return payload;
-    } catch (error) {
+    } catch {
       return null;
     }
   }

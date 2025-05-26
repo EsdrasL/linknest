@@ -57,7 +57,7 @@ export default function Home() {
                 <CheckCircle className="w-5 h-5" /> Real-Time Analytics
               </div>
               <p className="text-sm text-muted-foreground">
-                See what's working. Track link clicks, device types, and user
+                See what&apos;s working. Track link clicks, device types, and user
                 behavior in real time.
               </p>
             </CardContent>

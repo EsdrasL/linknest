@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function debounce<T extends (...args: any[]) => void>(
+export function debounce<T extends (...args: Parameters<T>) => void>(
   fn: T,
   wait: number
 ): (...args: Parameters<T>) => void {
