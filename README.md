@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Linknest
 
-## Getting Started
+This is a completely educational project that aims to build a minimal version of a “personal link hub”, where users can manage and share a set of curated links through a public-facing profile page.
 
-First, run the development server:
+https://linknest-seven.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Summary of implemented features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Authentication
+  - Login
+  - Sign Up
+  - Logout
+- Link management
+  - Create links
+  - Edit links
+  - Remove links
+- Public user page
+- Homepage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scope decisions and key trade-offs
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Prioritized Scalable Architecture:
+  I focused early efforts on designing a modular, scalable project structure. This decision aimed to simplify testing, support long-term maintainability, and make the app more adaptable to future feature growth.
 
-## Learn More
+- Leveraged Modern React and Next.js Capabilities:
+  I utilized recent advancements such as React Server Components, Next.js App Router, and built-in data fetching mechanisms to build a robust foundation, improve performance, and reduce the need for additional libraries.
 
-To learn more about Next.js, take a look at the following resources:
+- Adopted Tailwind CSS and shadcn/ui for UI Development:
+  To speed up development while keeping the design system flexible, I used Tailwind and shadcn/ui. This allowed me to ship components quickly and maintain consistency, while retaining the ability to easily customize or replace components as the product evolves.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Scoped Feature Set to Core Functionality:
+  Due to the time constraints, I deprioritized advanced features in favor of ensuring that the core user flows were functional, polished, and testable.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Implemented Lightweight Authentication:
+  Instead of integrating a full-featured solution like NextAuth, I opted for a lightweight, custom authentication system. This approach provided enough flexibility and control.
 
-## Deploy on Vercel
+## Setup and run instructions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For local development, clone the repository and:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Run `npm install` to install dependencies
+2. Run `npm run start:emulator` to build the Firebase Emulator image and start the container
+3. Run `npm run dev` to run Next.js
