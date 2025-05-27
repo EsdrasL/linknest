@@ -39,5 +39,6 @@ https://linknest-seven.vercel.app/
 For local development, clone the repository and:
 
 1. Run `npm install` to install dependencies
+2. Create a `.env.local` file based of the `env.example`
 2. Run `npm run start:emulator` to build the Firebase Emulator image and start the container
 3. Run `npm run dev` to run Next.js
