@@ -54,6 +54,7 @@ export default function LinkCard({
             />
             <div className="flex justify-end items-end">
               <Button
+                aria-label="Stop editing"
                 type="reset"
                 size="icon"
                 variant="ghost"
@@ -63,6 +64,7 @@ export default function LinkCard({
                 <XIcon className="w-4 h-4" />
               </Button>
               <Button
+                aria-label="Save link"
                 type="submit"
                 size="icon"
                 variant="ghost"
@@ -79,6 +81,7 @@ export default function LinkCard({
             <p className="text-sm text-muted-foreground">{link.url}</p>
             <div className="flex justify-end mt-auto">
               <Button
+                aria-label="Remove link"
                 type="submit"
                 size="icon"
                 variant="ghost"
@@ -88,6 +91,7 @@ export default function LinkCard({
                 <Trash className="w-4 h-4" />
               </Button>
               <Button
+                aria-label="Edit link"
                 type="submit"
                 size="icon"
                 variant="ghost"
